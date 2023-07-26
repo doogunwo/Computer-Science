@@ -11,11 +11,6 @@ def solution(wallpaper):
                 y1.append[y]
                 x1.append[x]
     
-    
-    
-            
-
-
     return answer
 
 wallpaper = ["..........", ".....#....", "......##..", "...##.....", "....#....."]
