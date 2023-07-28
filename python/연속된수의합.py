@@ -1,11 +1,4 @@
 def solution(num, total):
-    answer = []
-    answer.append(total//num)
-    return answer
+    avg = total // num
+    return [i for i in range(avg - (num-1)//2, avg + (num+2)//2)]
 
-
-num = 4
-total = 14
-
-res = solution(num, total)
-print(res)
