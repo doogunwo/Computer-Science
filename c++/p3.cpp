@@ -4,26 +4,22 @@
 
 using namespace std;
 
-vector<int> solution(vector<int> arr, int k) {
-    vector<int> answer;
-    
-    for(int i=0; i<arr.size(); i++){
-        if(k%2==0){
-            int val = arr[i] + k;
-            answer.push_back(val);
-        }
-        else{
-            int val = arr[i] * k;
-            answer.push_back(val);
+int solution(vector<int> num_list, int n) {
+    int answer = 0;
+    int i = 0;
+    for(i=0; i<num_list.size(); i++){
+        cout << num_list[i];
+        if (num_list[i]  == n){
+           cout << n ;
+            answer = 1;
         }
         
     }
-
+    
     return answer;
 }
 
 
 int main(){
-
-    system("pause");
+    cout << "p3.cpp" ;
 }

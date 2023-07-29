@@ -3,7 +3,7 @@
         {
             "type": "cppbuild",
             "label": "C/C++: g++.exe 활성 파일 빌드",
-            "command": "C:/MinGW/bin/g++.exe",
+            "command": "D:/Ming/bin/g++.exe",
             "args": [
                 "-fdiagnostics-color=always",
                 "-g",
@@ -12,7 +12,7 @@
                 "${fileDirname}\\${fileBasenameNoExtension}.exe"
             ],
             "options": {
-                "cwd": "C:/MinGW/bin"
+                "cwd": "D:/Ming/bin"
             },
             "problemMatcher": [
                 "$gcc"
