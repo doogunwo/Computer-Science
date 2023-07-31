@@ -4,6 +4,8 @@
 ### VisualStudioCode ###
 .vscode/*
 
+.c++/build/*
+
 # Local History for Visual Studio Code
 .history/
 
