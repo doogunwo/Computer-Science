@@ -1,7 +1,6 @@
 package main
 
-import "fmt"
-
 func main() {
-	fmt.Println("Hellow world!")
+	task_marshall()
+	task_unmarshall()
 }
