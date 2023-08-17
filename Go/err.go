@@ -7,11 +7,10 @@ import (
 )
 
 func fopen() {
-	f, err := os.Open("1.txt")
+	f, err := os.Open("go.mod")
 
 	if err != nil {
 		log.Fatal(err.Error())
 	}
-
 	fmt.Println(f.Name())
 }
