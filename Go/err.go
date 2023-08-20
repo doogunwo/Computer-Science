@@ -12,5 +12,8 @@ func fopen() {
 	if err != nil {
 		log.Fatal(err.Error())
 	}
+	b1 := make([]byte, 50)
+	_, err = f.Read(b1)
+	fmt.Println(string(b1))
 	fmt.Println(f.Name())
 }
