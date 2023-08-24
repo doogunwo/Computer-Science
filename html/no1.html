@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+   
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>태그 자바스크립트 작성</title>
+</head>
+<script>
+    function over(obj){
+        obj.src = 'durian.jpeg';
+    }
+    function out(obj){
+        obj.src = 'mango.jpeg';
+    }
+</script>
+<body>
+   <h3>마우스 올려주세요</h3>
+<hr>
+    <img src="mango.jpeg" alt="'fruits" 
+        onmouseover="over(this)"
+        onmouseout="out(this)">
+</body>
+</html>
