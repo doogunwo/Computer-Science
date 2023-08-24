@@ -19,6 +19,7 @@ func message(conn net.Conn) {
 		}
 		msg := string(buffer[:n])
 		conn.Write([]byte(msg))
+		fmt.Printf("수신 [%s]: %s\n", conn.RemoteAddr(), msg)
 	}
 }
 
@@ -51,7 +52,7 @@ func client() {
 func server() {
 	fmt.Println("서버실행")
 	//소켓생성
-	port := "1234"
+	port := "12345"
 	network := "tcp"
 
 	//bind
@@ -72,10 +73,11 @@ func server() {
 		}
 		//recv()
 		fmt.Println("클라이언트 연결:", connect.RemoteAddr())
+		go message(connect)
 	}
 }
 
 func main() {
 	fmt.Println("main")
-	client()
+	server()
 }
