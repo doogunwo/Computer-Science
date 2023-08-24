@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"net"
 	"os"
+	"strings"
 )
 
 func message(conn net.Conn) {
@@ -24,7 +25,7 @@ func message(conn net.Conn) {
 func client() {
 	fmt.Println("클라이언트실행")
 	//소켓 생성
-	connect, err := net.Dial("tcp", "127.0.0.1:1234")
+	connect, err := net.Dial("tcp", "192.168.35.135:12345")
 
 	if err != nil {
 		fmt.Println("서버 연결 실패:", err)
@@ -32,31 +33,17 @@ func client() {
 	}
 
 	defer connect.Close()
-
 	fmt.Println("서버에 연결")
+
 	reader := bufio.NewReader(os.Stdin)
 
 	for {
-		fmt.Println("나: ")
+		fmt.Println("전송:")
 		msg, _ := reader.ReadString('\n')
+		msg = strings.TrimSpace(msg)
 
-		_, err := connect.Write([]byte(msg + "/n"))
+		connect.Write([]byte(msg))
 
-		if err != nil {
-			fmt.Println("메시지 전송 실패", err)
-			return
-		}
-
-		buffer := make([]byte, 1024)
-		n, err := connect.Read(buffer)
-
-		if err != nil {
-			fmt.Println("서버 응답 실패:", err)
-			return
-		}
-
-		rcv := string(buffer[:n])
-		fmt.Print(rcv)
 	}
 
 }
@@ -90,5 +77,5 @@ func server() {
 
 func main() {
 	fmt.Println("main")
-	server()
+	client()
 }
