@@ -1,7 +1,5 @@
 def solution(name, yearning, photo):
-    # name = 사람 명단
-    # yearning = 그리움 수치
-    # photo = 사진 2차원 배열
+   
     answer = []
     dict2 = dict(zip(name,yearning))
     for i in photo:
@@ -13,8 +11,6 @@ def solution(name, yearning, photo):
                 pass
 
         answer.append(sum) 
-
-    print(answer)
 
     return answer
 
