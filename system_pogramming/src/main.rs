@@ -27,17 +27,21 @@ fn main() {
     println!("rows: {}, cols: {}",rows,cols);
 
     let mut matrix1 : Vec<Vec<i32>> = Vec::new();
-
-    for i in 0..rows{
-        for j in 0..cols{
-            
+   
+    for _ in 0..rows{
+        let mut row: Vec<i32> =Vec::new();
+        for _ in 0..cols{
+            let random_number = rng.gen_range(1..=3);
+            row.push(random_number);
         }
+        matrix1.push(row)
     }
 
-   
-
-   
-
-
+    for i in 0..rows {
+        for j in 0..cols {
+            print!("{} ", matrix1[i as usize][j as usize]);
+        }
+        println!();
+    }
 }
 
