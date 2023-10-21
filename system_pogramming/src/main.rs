@@ -8,6 +8,40 @@
 use std::io;
 use rand::Rng;
 
+fn create_Matrix(rows: i32, cols:i32)->Vec<Vec<i32>>{
+    let mut rng = rand::thread_rng();
+    let mut matrix: Vec<Vec<i32>> = Vec::new();
+
+    for _ in 0..rows{
+        let mut row: Vec<i32> =Vec::new();
+        for _ in 0..cols{
+            let random_number = rng.gen_range(1..=3);
+            row.push(random_number);
+        }
+        matrix.push(row)
+    }
+    matrix
+}
+
+fn print_Matrix(matrix: &Vec<Vec<i32>>) {
+    for row in matrix{
+        for &element in row{
+            print!("{} ",element);
+        }
+        println!();
+    }
+}
+
+fn sum_Matrix(mat1: &Vec<Vec<i32>>, mat2: &Vec<Vec<i32>>) ->Vec<Vec<i32>>{
+    let mut result: Vec<Vec<i32>> = vec![vec![0; mat1[0].len()]; mat1.len()];
+    for i in 0..mat1.len() {
+        for j in 0..mat1[0].len(){
+            result[i][j] = mat1[i][j] + mat2[i][j];
+        }
+    }
+    result
+}
+
 fn main() {
     let mut input1 = String::new();
     let mut input2 = String::new();
@@ -26,22 +60,19 @@ fn main() {
 
     println!("rows: {}, cols: {}",rows,cols);
 
-    let mut matrix1 : Vec<Vec<i32>> = Vec::new();
    
-    for _ in 0..rows{
-        let mut row: Vec<i32> =Vec::new();
-        for _ in 0..cols{
-            let random_number = rng.gen_range(1..=3);
-            row.push(random_number);
-        }
-        matrix1.push(row)
-    }
+    let mat1 = create_Matrix(rows,cols);
+    let mat2 = create_Matrix(rows,cols);
+    println!("matrix1:");
+    print_Matrix(&mat1);
+    println!("matrix2:");
+    print_Matrix(&mat2);
 
-    for i in 0..rows {
-        for j in 0..cols {
-            print!("{} ", matrix1[i as usize][j as usize]);
-        }
-        println!();
-    }
+    println!("mat1 + mat2 :");
+    sum_Matrix(&mat1,&mat2);
+
+    let mat3 = sum_Matrix(&mat1,&mat2);
+    print_Matrix(&mat3);
+
 }
 
