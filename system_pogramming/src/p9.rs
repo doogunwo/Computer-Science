@@ -8,7 +8,7 @@
 use std::io;
 use rand::Rng;
 
-fn create_Matrix(rows: i32, cols:i32)->Vec<Vec<i32>>{
+fn create_matrix(rows: i32, cols:i32)->Vec<Vec<i32>>{
     let mut rng = rand::thread_rng();
     let mut matrix: Vec<Vec<i32>> = Vec::new();
 
@@ -23,7 +23,7 @@ fn create_Matrix(rows: i32, cols:i32)->Vec<Vec<i32>>{
     matrix
 }
 
-fn print_Matrix(matrix: &Vec<Vec<i32>>) {
+fn print_matrix(matrix: &Vec<Vec<i32>>) {
     for row in matrix{
         for &element in row{
             print!("{} ",element);
@@ -32,7 +32,7 @@ fn print_Matrix(matrix: &Vec<Vec<i32>>) {
     }
 }
 
-fn sum_Matrix(mat1: &Vec<Vec<i32>>, mat2: &Vec<Vec<i32>>) ->Vec<Vec<i32>>{
+fn sum_matrix(mat1: &Vec<Vec<i32>>, mat2: &Vec<Vec<i32>>) ->Vec<Vec<i32>>{
     let mut result: Vec<Vec<i32>> = vec![vec![0; mat1[0].len()]; mat1.len()];
     for i in 0..mat1.len() {
         for j in 0..mat1[0].len(){
@@ -61,18 +61,18 @@ pub fn p9() {
     println!("rows: {}, cols: {}",rows,cols);
 
    
-    let mat1 = create_Matrix(rows,cols);
-    let mat2 = create_Matrix(rows,cols);
+    let mat1 = create_matrix(rows,cols);
+    let mat2 = create_matrix(rows,cols);
     println!("matrix1:");
-    print_Matrix(&mat1);
+    print_matrix(&mat1);
     println!("matrix2:");
-    print_Matrix(&mat2);
+    print_matrix(&mat2);
 
     println!("mat1 + mat2 :");
-    sum_Matrix(&mat1,&mat2);
+    sum_matrix(&mat1,&mat2);
 
-    let mat3 = sum_Matrix(&mat1,&mat2);
-    print_Matrix(&mat3);
+    let mat3 = sum_matrix(&mat1,&mat2);
+    print_matrix(&mat3);
 
 }
 
