@@ -1,0 +1,8 @@
+total 0
+drwxr-xr-x@ 2 dogeon-u  staff  64 10 26 13:10 linux2
+drwxr-xr-x@ 3 dogeon-u  staff  96 10 26 13:10 linux4
+-rw-r--r--@ 1 dogeon-u  staff   0 10 26 13:11 result.txt
+리눅스명령어 - 1
+리눅스 개념 
+쉘 프로그래밍,빔
+함수
