@@ -1,4 +1,8 @@
 A,B,N = map(int,input().split())
-result = A/B
-result_split = str(result).split(".")
-print(result_split[1][N-1])
+
+for i in range(N):
+
+    A = (A%B) *10
+    result = A//B
+
+print(result)
