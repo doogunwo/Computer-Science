@@ -24,7 +24,7 @@ func swapCase(input string) string {
 	return result
 }
 
-func main() {
+func main7() {
 	var input string
 	_, err := fmt.Scan(&input)
 
