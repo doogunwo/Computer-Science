@@ -7,7 +7,7 @@ import (
 	"strings"
 )
 
-func main() {
+func main12() {
 	// 한 줄을 입력으로 받음
 	reader := bufio.NewReader(os.Stdin)
 	line, _ := reader.ReadString('\n')
