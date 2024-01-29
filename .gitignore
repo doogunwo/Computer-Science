@@ -213,6 +213,13 @@ $RECYCLE.BIN/
 *.msm
 *.msp
 
+#add custom
+
+*.html
+*.css
+Makefile
+
+
 # Windows shortcuts
 *.lnk
 
