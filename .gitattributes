@@ -2,3 +2,9 @@
 *.html linguist-detectable=false
 *.tex linguist-detectable=false
 Makefile linguist-detectable=false
+
+*.ko linguist-vendored
+*.cmd linguist-vendored
+*.order linguist-vendored
+*.symvers linguist-vendored
+
