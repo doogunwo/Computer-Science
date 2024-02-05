@@ -214,7 +214,8 @@ $RECYCLE.BIN/
 *.msp
 
 #add custom
-
+# 모든 .bat 파일을 무시
+*.bat
 *.html
 *.css
 Makefile
