@@ -1,0 +1,1 @@
+cmd_/home/doogunwo/Desktop/Computer-Science/kernel/semaphore/semaphore_example.mod := { echo  /home/doogunwo/Desktop/Computer-Science/kernel/semaphore/semaphore_example.o;  echo; } > /home/doogunwo/Desktop/Computer-Science/kernel/semaphore/semaphore_example.mod

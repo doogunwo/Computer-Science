@@ -1,0 +1,1 @@
+cmd_/home/doogunwo/Desktop/Computer-Science/study/spinlock/Module.symvers := sed 's/\.ko$$/\.o/' /home/doogunwo/Desktop/Computer-Science/study/spinlock/modules.order | scripts/mod/modpost -m -a  -o /home/doogunwo/Desktop/Computer-Science/study/spinlock/Module.symvers -e -i Module.symvers   -T -
