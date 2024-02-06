@@ -217,7 +217,7 @@ $RECYCLE.BIN/
 *.html
 *.css
 Makefile
-
+kernel/zns_ssd_driver/*
 
 # Windows shortcuts
 *.lnk
