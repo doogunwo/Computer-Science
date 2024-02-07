@@ -8,3 +8,4 @@ Makefile linguist-detectable=false
 *.order linguist-vendored
 *.symvers linguist-vendored
 
+./kernel/zns_ssd_driver/qemu-6.1.0/*
