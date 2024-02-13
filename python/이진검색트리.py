@@ -1,3 +1,9 @@
+import sys
+input = sys.stdin.readline
+#recursion error 방지
+sys.setrecursionlimit(10**9)
+
+
 class Node(object):
     def __init__(self, data):
         self.data = data
@@ -27,12 +33,14 @@ class BinaryTree():
             self.postorder_traversal(node.right, result)
             result.append(node.data)
 
+    
 if __name__ == "__main__":
     array = []
     while True:
         try:
-            array.append(int(input()))
-        except EOFError:
+            x = int(input())
+            array.append(x)
+        except:
             break
     
     bst = BinaryTree()
