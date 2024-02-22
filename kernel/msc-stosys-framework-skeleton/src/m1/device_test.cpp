@@ -28,6 +28,11 @@ SOFTWARE.
 #include "device.h"
 #include "../common/nvmeprint.h"
 
+#include <fcntl.h>
+#include <unistd.h>
+#include <errno.h>
+#include <string.h>
+
 #define MAX_DEVICES 10
 
 // Examples lifted from, https://github.com/linux-nvme/libnvme/blob/667334ff8c53dbbefa51948bbe2e086624bf4d0d/test/cpp.cc
@@ -80,7 +85,7 @@ int count_and_show_all_nvme_devices() {
     return count;
 }
 
-extern "C" {
+extern "C" { }
 
 int scan_and_identify_zns_devices(struct ss_nvme_ns *list){
     int ret;
@@ -181,6 +186,9 @@ int show_zns_zone_status(int fd, int nsid, struct zone_to_test *ztest){
         fprintf(stderr, "failed to report zones, ret %d \n", ret);
         return ret;
     }
+
+
+
     // see figures 37-38-39 in section 4.4.1
     num_zones = le64_to_cpu(zns_report.nr_zones);
     printf("nr_zones:%" PRIu64"\n", num_zones);
@@ -226,30 +234,41 @@ int show_zns_zone_status(int fd, int nsid, struct zone_to_test *ztest){
     free(zone_reports);
     return ret;
 }
+/*
 int ss_nvme_device_io_with_mdts(int fd, uint32_t nsid, uint64_t slba, uint16_t numbers, void *buffer, uint64_t buf_size,
                                 uint64_t lba_size, uint64_t mdts_size, bool read){
     //FIXME:
     return -ENOSYS;
 }
+*/
 
 int ss_nvme_device_read(int fd, uint32_t nsid, uint64_t slba, uint16_t numbers, void *buffer, uint64_t buf_size) {
-        //FIXME:
-        // fd  = NVMe 장치의 파일 디스크립터 
-        // nsid = 네임스페이스 식별자로 nvme장치의 네임스페이스
-        // slba = 읽을 시작 LBA(논리 블록 주소)입니다.
-        // numbers = 읽을 lba 수
-        // buffer : 읽을 데이터를 저장할 버퍼
-        // buf_size
+    // fd는 NVMe 장치의 파일 디스크립터입니다.
+    // nsid는 네임스페이스 식별자입니다.
+    // slba는 읽기를 시작할 LBA(논리 블록 주소)입니다.
+    // numbers는 읽을 LBA의 수입니다.
+    // buffer는 읽은 데이터를 저장할 버퍼입니다.
+    // buf_size는 버퍼의 크기입니다.
+        
+    int ret;
 
-        return -ENOSYS;
+    // NVMe 라이브러리 함수를 사용하여 데이터를 읽습니다.
+    ret = nvme_read(fd, nsid, slba, numbers, 0, 0, 0, 0, 0, 0, buffer, buf_size, nullptr);
+
+    if (ret < 0) {
+        fprintf(stderr, "NVMe 읽기 실패: %s\n", strerror(-ret));
+        return ret;
+    }
+
+    return 0;
+
 }
 
-
+/*
 int ss_nvme_device_write(int fd, uint32_t nsid, uint64_t slba, uint16_t numbers, void *buffer, uint64_t buf_size) {
     //FIXME:
     return -ENOSYS;
 }
-
 int ss_zns_device_zone_reset(int fd, uint32_t nsid, uint64_t slba) {
     //FIXME:
     return -ENOSYS;
@@ -272,3 +291,6 @@ uint64_t get_mdts_size(){
 }
 }
 
+// g++ -o device_test device_test.cpp -L/path/to/library -lnvme 
+
+*/

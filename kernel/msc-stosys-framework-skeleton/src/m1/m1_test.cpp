@@ -28,7 +28,7 @@ SOFTWARE.
 #include <cstring>
 #include <cassert>
 
-#include "device_test.h"
+#include "device.h"
 #include "../common/nvmeprint.h"
 #include "../common/utils.h"
 
@@ -198,11 +198,14 @@ int main() {
         printf("Error: failed to open any device, zero devices in the system? \n");
         return -ENODEV;
     }
+
+    //동적할당 -> my_devices
     my_devices = (struct ss_nvme_ns *) calloc (num_devices, sizeof(*my_devices));
     if(!my_devices){
         printf("failed calloc, -ENOMEM \n");
         return -12;
     }
+    
     ret = scan_and_identify_zns_devices(my_devices);
     if(ret < 0){
         printf("scanning of the devices failed %d\n", ret);
