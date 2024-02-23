@@ -1,24 +1,3 @@
-/*
- * MIT License
-Copyright (c) 2021 - current
-Authors:  Animesh Trivedi
-This code is part of the Storage System Course at VU Amsterdam
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
- */
 
 #include <iostream>
 #include <libnvme.h>
@@ -32,7 +11,6 @@ SOFTWARE.
 #include <unistd.h>
 #include <errno.h>
 #include <string.h>
-
 #define MAX_DEVICES 10
 
 // Examples lifted from, https://github.com/linux-nvme/libnvme/blob/667334ff8c53dbbefa51948bbe2e086624bf4d0d/test/cpp.cc
@@ -253,10 +231,10 @@ int ss_nvme_device_read(int fd, uint32_t nsid, uint64_t slba, uint16_t numbers, 
     int ret;
 
     // NVMe 라이브러리 함수를 사용하여 데이터를 읽습니다.
-    ret = nvme_read(fd, nsid, slba, numbers, 0, 0, 0, 0, 0, 0, buffer, buf_size, nullptr);
-
+    ret = nvme_read(fd, nsid, slba, numbers, 0, 0, 0, 0, 0, 0, buffer, buf_size, NULL);
+    //return nvme_read(fd, nsid, slba, nblocks, 0, 0, 0, 0, 0, 0, buffer, buf_size, NULL);
     if (ret < 0) {
-        fprintf(stderr, "NVMe 읽기 실패: %s\n", strerror(-ret));
+        fprintf(stderr, "NVMe read failed: %s\n", strerror(-ret));
         return ret;
     }
 
@@ -264,11 +242,23 @@ int ss_nvme_device_read(int fd, uint32_t nsid, uint64_t slba, uint16_t numbers, 
 
 }
 
-/*
+
 int ss_nvme_device_write(int fd, uint32_t nsid, uint64_t slba, uint16_t numbers, void *buffer, uint64_t buf_size) {
-    //FIXME:
-    return -ENOSYS;
+    
+    int ret;
+
+    ret = nvme_write(fd, nsid, slba, numbers, 0, 0, 0, 0, 0, 0, 0, buffer, buf_size, NULL);
+    if( ret < 0){
+        fprintf(stderr, "NVMe write failed: %s\n", strerror(-ret));
+        return ret;
+    }
+
+    return 0;
+    
 }
+
+
+/*
 int ss_zns_device_zone_reset(int fd, uint32_t nsid, uint64_t slba) {
     //FIXME:
     return -ENOSYS;

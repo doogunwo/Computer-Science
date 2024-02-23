@@ -56,6 +56,7 @@ static int test1_lba_io_test(int zfd, uint32_t nsid, struct zone_to_test *ztest)
     write_pattern(w_pattern, ztest->lba_size_in_use);
     // Step 1: this is an empty zone because we choose to pick so, lets write the first LBA
     ret = ss_nvme_device_write(zfd, nsid, test_lba_address, 1, w_pattern, ztest->lba_size_in_use);
+    //ss_nvme_device_write(int fd, uint32_t nsid, uint64_t slba, uint16_t numbers, void *buffer, uint64_t buf_size)
     if(ret != 0){
         printf("ERROR: writing failed on the zone? ret %d \n", ret);
         goto done;
