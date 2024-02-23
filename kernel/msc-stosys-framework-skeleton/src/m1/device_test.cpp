@@ -257,13 +257,24 @@ int ss_nvme_device_write(int fd, uint32_t nsid, uint64_t slba, uint16_t numbers,
     
 }
 
-
-/*
 int ss_zns_device_zone_reset(int fd, uint32_t nsid, uint64_t slba) {
     //FIXME:
-    return -ENOSYS;
+    int ret;
+    bool res = true;
+    nvme_zns_report_options opts;
+    //int nvme_zns_report_zones(int fd, __u32 nsid, __u64 slba, enum nvme_zns_report_options opts, bool extended, bool partial, __u32 data_len, void *data, __u32 timeout, __u32 *result)
+    // int nvme_zns_report_zones(int, __u32, __u64, bool, nvme_zns_report_options, bool, __u32, void*)
+    // int nvme_zns_report_zones(fd, nsid, slba, res, NVME_ZNS_ZRAS_REPORT_ALL, true, 0, NULL)
+    ret =  nvme_zns_report_zones(fd, nsid, slba, res, NVME_ZNS_ZRAS_REPORT_ALL, true, 0, NULL);
+    if ( ret < 0 ){
+        fprintf(stderr, "NVMe reset failed: %s\n", strerror(-ret));
+        return ret;
+    }
+
+    return 0;
 }
 
+/*
 // this does not take slba because it will return that
 int ss_zns_device_zone_append(int fd, uint32_t nsid, uint64_t zslba, int numbers, void *buffer, uint32_t buf_size, uint64_t *written_slba){
     //FIXME:
