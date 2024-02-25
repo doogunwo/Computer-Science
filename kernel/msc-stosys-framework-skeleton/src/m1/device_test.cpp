@@ -274,13 +274,23 @@ int ss_zns_device_zone_reset(int fd, uint32_t nsid, uint64_t slba) {
     return 0;
 }
 
-/*
-// this does not take slba because it will return that
-int ss_zns_device_zone_append(int fd, uint32_t nsid, uint64_t zslba, int numbers, void *buffer, uint32_t buf_size, uint64_t *written_slba){
-    //FIXME:
-    return -ENOSYS;
-}
 
+// this does not take slba because it will return that
+int ss_zns_device_zone_append(int fd, uint32_t nsid, uint64_t zslba, int numbers, void *buffer, uint32_t buf_size, uint64_t *written_slba)
+{
+	int ret;
+	__u64 written_slba_value;
+
+	ret = nvme_zns_append(fd, nsid, zslba, numbers, 0, 0, 0, 0, 0, buffer, buf_size, NULL, &written_slba_value);
+
+	if(ret < 0 ) {
+		fprintf(stderr, "NVMe append failed: %s\n", strerror(-ret));
+		return ret;
+	}
+
+	return ret;
+}
+/*
 void update_lba(uint64_t &write_lba, const uint32_t lba_size, const int count){
     assert(false);
 }
