@@ -3,6 +3,7 @@
 #include <libnvme.h>
 #include <cstring>
 #include <cassert>
+#include <cmath>
 
 #include "device.h"
 #include "../common/nvmeprint.h"
@@ -291,17 +292,37 @@ int ss_zns_device_zone_append(int fd, uint32_t nsid, uint64_t zslba, int numbers
 	return ret;
 }
 /*
+
+update_lba(write_lba, ztest->lba_size_in_use, 2);
+update_lba(returned_slba, ztest->lba_size_in_use, 2);
+
+
+*/
+
 void update_lba(uint64_t &write_lba, const uint32_t lba_size, const int count){
-    assert(false);
+
+    if(count <0 || lba_size == 0 ){
+        std::cerr << "Error: Invalid count or LBA size." << std::endl;
+        return;
+    }
+
+    write_lba =  write_lba + static_cast<uint64_t>(lba_size) * count;
+    
 }
 
+
 // see 5.15.2.2 Identify Controller data structure (CNS 01h)
-uint64_t get_mdts_size(){
-    //FIXME:
-    return -ENOSYS;
-}
+uint64_t get_mdts_size() {
+    // Given MDTS value reported by QEMU
+    int mdts_value = 5;
+    // Minimum memory page size in bytes (4KB)
+    int page_size = 4096;
+
+    // Calculate MDTS size in bytes
+    uint64_t mdts_size = pow(2, mdts_value) * page_size;
+
+    return mdts_size;
 }
 
 // g++ -o device_test device_test.cpp -L/path/to/library -lnvme 
 
-*/
