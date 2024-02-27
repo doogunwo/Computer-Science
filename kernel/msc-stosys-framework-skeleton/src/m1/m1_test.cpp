@@ -23,6 +23,7 @@ SOFTWARE.
 #include <cstdio>
 #include <cstdlib>
 #include <cerrno>
+#include <cstdint>
 
 #include <libnvme.h>
 #include <cstring>
@@ -188,6 +189,7 @@ int main() {
     printf("============================================================== \n");
     // scan all NVMe devices in the system - just like nvme list command
     ret = count_and_show_all_nvme_devices();
+    printf("ret : %d\n  ", ret);
     if(ret < 0){
         printf("the host device scans failed, %d \n", ret);
         return ret;
@@ -201,6 +203,9 @@ int main() {
     }
 
     //동적할당 -> my_devices
+    printf("dbg1    num_devices == %d\n", num_devices);
+    printf("dbg2    Size of each element in my_devices array == %zu bytes\n", sizeof(*my_devices));
+
     my_devices = (struct ss_nvme_ns *) calloc (num_devices, sizeof(*my_devices));
     if(!my_devices){
         printf("failed calloc, -ENOMEM \n");
@@ -211,7 +216,12 @@ int main() {
     if(ret < 0){
         printf("scanning of the devices failed %d\n", ret);
         return ret;
+    }else{
+        printf("scanning of the devices success %d\n", ret);
     }
+
+    printf("dbg3    ctrl_name ===== %s\n",my_devices[0].ctrl_name);
+
     for(int i = 0; i < num_devices; i++){
         printf("namespace: %s and zns %s \n", my_devices[i].ctrl_name, (my_devices[i].supports_zns ? "YES" : "NO"));
         if(my_devices[i].supports_zns) {
@@ -238,7 +248,6 @@ int main() {
         printf("ERROR: failed to retrieve the nsid %d \n", ret);
         return ret;
     }
-    ss_nvme_show_id_ns(&ns);
     printf("number of LBA formats? %d (a zero based value) \n", ns.nlbaf);
     // extract the in-use LBA size, it could be the case that the device supports multiple LBA size
     ztest.lba_size_in_use = 1 << ns.lbaf[(ns.flbas & 0xf)].ds;

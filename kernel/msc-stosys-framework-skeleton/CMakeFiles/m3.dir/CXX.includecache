@@ -1,0 +1,44 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/doogunwo/Desktop/Computer-Science/kernel/msc-stosys-framework-skeleton/src/common/utils.h
+cstdint
+-
+string
+-
+
+/home/doogunwo/Desktop/Computer-Science/kernel/msc-stosys-framework-skeleton/src/m23-ftl/m3.cpp
+unistd.h
+-
+cstdio
+-
+cassert
+-
+cstdlib
+-
+cstring
+-
+vector
+-
+algorithm
+-
+iostream
+-
+random
+-
+fcntl.h
+-
+zns_device.h
+/home/doogunwo/Desktop/Computer-Science/kernel/msc-stosys-framework-skeleton/src/m23-ftl/zns_device.h
+../common/utils.h
+/home/doogunwo/Desktop/Computer-Science/kernel/msc-stosys-framework-skeleton/src/common/utils.h
+
+/home/doogunwo/Desktop/Computer-Science/kernel/msc-stosys-framework-skeleton/src/m23-ftl/zns_device.h
+cstdint
+-
+

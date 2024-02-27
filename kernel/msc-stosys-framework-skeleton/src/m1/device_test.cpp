@@ -213,34 +213,55 @@ int show_zns_zone_status(int fd, int nsid, struct zone_to_test *ztest){
     free(zone_reports);
     return ret;
 }
-/*
+
 int ss_nvme_device_io_with_mdts(int fd, uint32_t nsid, uint64_t slba, uint16_t numbers, void *buffer, uint64_t buf_size,
-                                uint64_t lba_size, uint64_t mdts_size, bool read){
-    //FIXME:
-    return -ENOSYS;
+                                uint64_t lba_size, uint64_t mdts_size, bool read) {
+    // Calculate the number of MDTS-sized chunks needed for the given buffer size
+    uint64_t num_chunks = (buf_size + mdts_size - 1) / mdts_size;
+
+    // Calculate the size of each MDTS-sized chunk
+    uint64_t chunk_size = buf_size / num_chunks;
+
+    // Perform I/O operations for each MDTS-sized chunk
+    for (uint64_t i = 0; i < num_chunks; ++i) {
+        // Calculate the starting LBA for the current chunk
+        uint64_t chunk_slba = slba + i * (chunk_size / lba_size);
+
+        // Calculate the number of LBAs for the current chunk
+        uint16_t chunk_numbers = chunk_size / lba_size;
+
+        // Perform read or write operation for the current chunk
+        int ret;
+        if (read) {
+            ret = ss_nvme_device_read(fd, nsid, chunk_slba, chunk_numbers, static_cast<char*>(buffer) + i * chunk_size, chunk_size);
+
+        } else {
+            ret = ss_nvme_device_write(fd, nsid, chunk_slba, chunk_numbers, static_cast<char*>(buffer) + i * chunk_size, chunk_size);
+
+        }
+
+        // Check for errors
+        if (ret != 0) {
+            return ret;
+        }
+    }
+
+    return 0;
 }
-*/
+
+
 
 int ss_nvme_device_read(int fd, uint32_t nsid, uint64_t slba, uint16_t numbers, void *buffer, uint64_t buf_size) {
-    // fd는 NVMe 장치의 파일 디스크립터입니다.
-    // nsid는 네임스페이스 식별자입니다.
-    // slba는 읽기를 시작할 LBA(논리 블록 주소)입니다.
-    // numbers는 읽을 LBA의 수입니다.
-    // buffer는 읽은 데이터를 저장할 버퍼입니다.
-    // buf_size는 버퍼의 크기입니다.
-        
+
     int ret;
 
-    // NVMe 라이브러리 함수를 사용하여 데이터를 읽습니다.
     ret = nvme_read(fd, nsid, slba, numbers, 0, 0, 0, 0, 0, 0, buffer, buf_size, NULL);
-    //return nvme_read(fd, nsid, slba, nblocks, 0, 0, 0, 0, 0, 0, buffer, buf_size, NULL);
     if (ret < 0) {
         fprintf(stderr, "NVMe read failed: %s\n", strerror(-ret));
         return ret;
     }
 
     return 0;
-
 }
 
 
@@ -257,22 +278,17 @@ int ss_nvme_device_write(int fd, uint32_t nsid, uint64_t slba, uint16_t numbers,
     return 0;
     
 }
+#define NVME_TIMEOUT_INFINITE 0xFFFFFFFF
 
 int ss_zns_device_zone_reset(int fd, uint32_t nsid, uint64_t slba) {
-    //FIXME:
-    int ret;
-    bool res = true;
-    nvme_zns_report_options opts;
-    //int nvme_zns_report_zones(int fd, __u32 nsid, __u64 slba, enum nvme_zns_report_options opts, bool extended, bool partial, __u32 data_len, void *data, __u32 timeout, __u32 *result)
-    // int nvme_zns_report_zones(int, __u32, __u64, bool, nvme_zns_report_options, bool, __u32, void*)
-    // int nvme_zns_report_zones(fd, nsid, slba, res, NVME_ZNS_ZRAS_REPORT_ALL, true, 0, NULL)
-    ret =  nvme_zns_report_zones(fd, nsid, slba, res, NVME_ZNS_ZRAS_REPORT_ALL, true, 0, NULL);
-    if ( ret < 0 ){
-        fprintf(stderr, "NVMe reset failed: %s\n", strerror(-ret));
+
+    int ret = nvme_ctrl_reset(fd);
+    if(ret){
         return ret;
     }
 
-    return 0;
+    return ioctl(fd, NVME_IOCTL_RESET);
+
 }
 
 
@@ -291,13 +307,6 @@ int ss_zns_device_zone_append(int fd, uint32_t nsid, uint64_t zslba, int numbers
 
 	return ret;
 }
-/*
-
-update_lba(write_lba, ztest->lba_size_in_use, 2);
-update_lba(returned_slba, ztest->lba_size_in_use, 2);
-
-
-*/
 
 void update_lba(uint64_t &write_lba, const uint32_t lba_size, const int count){
 

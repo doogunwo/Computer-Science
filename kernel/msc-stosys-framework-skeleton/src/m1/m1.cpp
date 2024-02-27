@@ -234,7 +234,6 @@ int main() {
         printf("ERROR: failed to retrieve the nsid %d \n", ret);
         return ret;
     }
-    ss_nvme_show_id_ns(&ns);
     printf("number of LBA formats? %d (a zero based value) \n", ns.nlbaf);
     // extract the in-use LBA size, it could be the case that the device supports multiple LBA size
     ztest.lba_size_in_use = 1 << ns.lbaf[(ns.flbas & 0xf)].ds;

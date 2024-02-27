@@ -1,0 +1,10 @@
+/home/doogunwo/Desktop/Computer-Science/kernel/msc-stosys-framework-skeleton/CMakeFiles/install/strip.dir
+/home/doogunwo/Desktop/Computer-Science/kernel/msc-stosys-framework-skeleton/CMakeFiles/install.dir
+/home/doogunwo/Desktop/Computer-Science/kernel/msc-stosys-framework-skeleton/CMakeFiles/list_install_components.dir
+/home/doogunwo/Desktop/Computer-Science/kernel/msc-stosys-framework-skeleton/CMakeFiles/rebuild_cache.dir
+/home/doogunwo/Desktop/Computer-Science/kernel/msc-stosys-framework-skeleton/CMakeFiles/edit_cache.dir
+/home/doogunwo/Desktop/Computer-Science/kernel/msc-stosys-framework-skeleton/CMakeFiles/m3.dir
+/home/doogunwo/Desktop/Computer-Science/kernel/msc-stosys-framework-skeleton/CMakeFiles/install/local.dir
+/home/doogunwo/Desktop/Computer-Science/kernel/msc-stosys-framework-skeleton/CMakeFiles/m2.dir
+/home/doogunwo/Desktop/Computer-Science/kernel/msc-stosys-framework-skeleton/CMakeFiles/stosys.dir
+/home/doogunwo/Desktop/Computer-Science/kernel/msc-stosys-framework-skeleton/CMakeFiles/m1.dir
