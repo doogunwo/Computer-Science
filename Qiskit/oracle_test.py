@@ -1,6 +1,11 @@
-from qiskit import Aer, execute, QuantumCircuit, QuantumRegister, ClassicalRegister
-from qiskit.visualization import plot_histogram
-from qiskit.circuit.library import GroverOperator
+from qiskit import QuantumRegister, ClassicalRegister, QuantumCircuit
+import matplotlib.pyplot as plt
+from qiskit.quantum_info import Statevector
+
+from  qiskit_aer import AerSimulator, Aer
+from qiskit import transpile
+
+
 
 # 오라클을 구현하는 함수
 def oracle(qc):
@@ -28,11 +33,14 @@ diffusion(qc)
 # 결과 측정
 qc.measure(qr, cr)
 
+# 회로 변환
+new_circuit = transpile(qc)
+
 # 시뮬레이션 실행
-backend = Aer.get_backend('qasm_simulator')
-result = execute(qc, backend, shots=1024).result()
-counts = result.get_counts(qc)
+backend = Aer.get_backend('aer_simulator')
+job = backend.run(new_circuit)
+result = job.result()
+counts = result.get_counts(new_circuit)
 
 # 결과 출력
 print(counts)
-plot_histogram(counts)
